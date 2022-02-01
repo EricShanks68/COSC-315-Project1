@@ -30,8 +30,8 @@ char readChar() {
 // main method - program entry point
 int main() {
     char cmd[81]; // array of chars (a string)
-    char* cmdTokens[20]; // array of strings
-    int count; // number of times to execute command
+    char* cmdTokens[20]; // array of strings  //name of program
+    int count; // number of times to execute command //number of copies of program
     int parallel; // whether to run in parallel or sequentially
     int timeout; // max seconds to run set of commands (parallel) or each command (sequentially)
     
@@ -54,7 +54,11 @@ int main() {
             timeout = readChar() - '0';
         } while (timeout < 0 || timeout > 9);
         // end parsing code
+
         
+
+
+
         
         ////////////////////////////////////////////////////////
         //                                                    //
@@ -63,8 +67,23 @@ int main() {
         //                                                    //
         // /////////////////////////////////////////////////////
         
+
+        //want to make child processes of current program
+        // ie fork()
+
+        //then want to make each child process execute execvp(cmdTokens[0], cmdTokens); which will run the new user command
+        //have parallel or sequential processes 
+        //probs have to have some waiting for each process to execute if sequential
+        //parallelize if parallel
+
+        //if processes take longer than timeout to run, then terminate process
+        // printf("the parent process' id is: %d\n", getppid());
+        for(int i = 0; i <= count; i++){
+            execvp(cmdTokens[0], cmdTokens);
+        }
+        
         // just executes the given command once - REPLACE THIS CODE WITH YOUR OWN
-        execvp(cmdTokens[0], cmdTokens); // replaces the current process with the given program
+        // execvp(cmdTokens[0], cmdTokens); // replaces the current process with the given program
         // doesn't return unless the calling failed
         printf("Can't execute %s\n", cmdTokens[0]); // only reached if running the program failed
         exit(1);        
