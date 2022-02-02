@@ -78,14 +78,20 @@ int main() {
 
         //if processes take longer than timeout to run, then terminate process
         // printf("the parent process' id is: %d\n", getppid());
-        for(int i = 0; i <= count; i++){
-            execvp(cmdTokens[0], cmdTokens);
+         int pid = getpid();
+        for(int i = 0; i < count; i++){
+            int pid_fork = fork();
+            if(pid_fork != 0){ //if the id of the forked process(child) is not a child process (parent process) then 
+                printf("Parent process is: %d with the child: %d\n",getppid(),getpid());
+                execvp(cmdTokens[0], cmdTokens); // replaces the current process with the given program // which essentially runs the command/program given
+                //exit(0); //use exit(0) if need to jump out of the for loop at this point
+            }
         }
         
         // just executes the given command once - REPLACE THIS CODE WITH YOUR OWN
         // execvp(cmdTokens[0], cmdTokens); // replaces the current process with the given program
         // doesn't return unless the calling failed
-        printf("Can't execute %s\n", cmdTokens[0]); // only reached if running the program failed
+        //printf("Can't execute %s\n", cmdTokens[0]); // only reached if running the program failed
         exit(1);        
     }
 }
