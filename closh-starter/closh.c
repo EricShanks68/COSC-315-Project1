@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <signal.h>
+#include <time.h>
 
 #define TRUE 1
 #define FALSE 0
@@ -78,7 +79,9 @@ int main() {
 
         //if processes take longer than timeout to run, then terminate process
         // printf("the parent process' id is: %d\n", getppid());
-         int pid = getpid();
+        
+
+        //loop creates n amount of processes, but not n child processes from same root process
         for(int i = 0; i < count; i++){
             int pid_fork = fork();
             if(pid_fork != 0){ //if the id of the forked process(child) is not a child process (parent process) then 
